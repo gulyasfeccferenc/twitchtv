@@ -1,0 +1,8 @@
+<div ng-controller="TwitchCtrl">
+  <div ng-repeat="stream in digested" class="streamer-container">
+    <a href="{{stream.stream.channel.url || '#'}}" target="_blank" ng-class="{'active': stream.stream !== null}">
+      <strong>{{ stream.name }}</strong>
+      <small ng-if="stream.stream">Currently streaming: {{ stream.stream.game }}</small>
+    </a>
+  </div>
+</div>
