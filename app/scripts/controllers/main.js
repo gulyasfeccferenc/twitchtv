@@ -24,13 +24,14 @@ function fetchFactory($q) {
 
     return function () {
 
-      return $q(function(resolve, reject){
+      return $q(function(resolve){
         $.getJSON('https://api.twitch.tv/kraken/streams/'+elem+'?callback=?', function(data) {
+          data.name = elem;
           resolve(data);
         });
-      })
-    }
-  }
+      });
+    };
+  };
 }
 /**
  * @ngdoc function
@@ -41,24 +42,20 @@ function fetchFactory($q) {
  */
 angular.module('twitchtvApp')
   .controller('TwitchCtrl', function (fetchFactory, $scope) {
-    const self = this;
-    self.callFactory = callFactory
+    var self = this;
     $scope.digested = [];
     $scope.streamers = ['ESL_SC2', 'OgamingSC2', 'cretetion', 'freecodecamp', 'storbeck', 'habathcx', 'RobotCaleb', 'noobs2ninjas'];
 
-    callFactory();
-
     function callFactory() {
-      for (let i = 0; i < $scope.streamers.length;i++) {
-        let z = fetchFactory($scope.streamers[i]);
+      for (var i = 0; i < $scope.streamers.length; i++) {
+        var z = fetchFactory($scope.streamers[i]);
 
-        z().then(function(kurwa){
-          kurwa.name = $scope.streamers[i];
-          $scope.digested.push(kurwa);
-          console.log($scope.digested);
+        z().then(function(streamer){
+          $scope.digested.push(streamer);
         });
       }
     }
-
+    self.callFactory = callFactory;
+    callFactory();
   })
-  .factory('fetchFactory', fetchFactory)
+  .factory('fetchFactory', fetchFactory);

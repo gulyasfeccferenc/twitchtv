@@ -310,7 +310,7 @@ module.exports = function (grunt) {
     // cssmin: {
     //   dist: {
     //     files: {
-    //       '<%= yeoman.dist %>/styles/main.css': [
+    //       '<%= yeoman.dist %>/styles/main.min.css': [
     //         '.tmp/styles/{,*/}*.css'
     //       ]
     //     }
@@ -514,7 +514,6 @@ module.exports = function (grunt) {
     'cdnify',
     'cssmin',
     'uglify',
-    'filerev',
     'usemin',
     'htmlmin'
   ]);
