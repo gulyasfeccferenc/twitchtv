@@ -224,7 +224,7 @@ module.exports = function (grunt) {
         src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         ignorePath: /(\.\.\/){1,2}bower_components\//
       }
-    }, 
+    },
 
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
@@ -394,6 +394,16 @@ module.exports = function (grunt) {
       }
     },
 
+    'gh-pages': {
+      options: {
+        base: 'app',
+        user: {
+          name: 'Ferenc Gulyas',
+          email: 'gulyasfeccferenc@gmail.com'
+        }
+      },
+      src: ['**']
+    },
     // Replace Google CDN references
     cdnify: {
       dist: {
@@ -479,6 +489,8 @@ module.exports = function (grunt) {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve:' + target]);
   });
+
+  grunt.registerTask('dev', ['gh-pages']);
 
   grunt.registerTask('test', [
     'clean:server',
